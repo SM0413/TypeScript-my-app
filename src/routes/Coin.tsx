@@ -9,6 +9,7 @@ const Title = styled.h1`
 const Loader = styled.span`
   text-align: center;
 `;
+
 const Container = styled.div`
   padding: 0px 20px;
   max-width: 480px;
