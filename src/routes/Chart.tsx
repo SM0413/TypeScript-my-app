@@ -1,7 +1,6 @@
 import { useQuery } from "react-query";
 import { fetchCoinHistory } from "../api";
 import ApexChart from "react-apexcharts";
-import { getValue } from "@testing-library/user-event/dist/utils";
 
 interface IHistorical {
   time_open: number;
