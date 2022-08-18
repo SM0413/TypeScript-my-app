@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { fetchCoinHistory } from "../api";
 import ApexChart from "react-apexcharts";
+import { getValue } from "@testing-library/user-event/dist/utils";
 
 interface IHistorical {
   time_open: number;
@@ -47,7 +48,22 @@ function Chart({ coinId }: ChartProps) {
             },
             grid: { show: false },
             yaxis: { show: false },
-            xaxis: { labels: { show: false } },
+            xaxis: {
+              labels: {
+                show: false,
+                datetimeFormatter: { month: "mmmm 'yy'" },
+              },
+              axisBorder: { show: false },
+              axisTicks: { show: false },
+              type: "datetime",
+              categories: data?.map((price) => price.time_close),
+            },
+            fill: {
+              type: "gradient",
+              gradient: { gradientToColors: ["#40739e"], stops: [0, 100] },
+            },
+            colors: ["#8c7ae6"],
+            tooltip: { y: { formatter: (value) => `$ ${value.toFixed(3)}` } },
           }}
         />
       )}
