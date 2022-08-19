@@ -19,7 +19,17 @@ function Price({ coinId }: PriceProps) {
   const { isLoading, data } = useQuery<IPrice[]>(["PriceOf", coinId], () =>
     fetchPrice(coinId)
   );
-  return <div>{isLoading ? "Loading Price....." : null}</div>;
+  return (
+    <div>
+      {isLoading ? (
+        "Loading Price....."
+      ) : (
+        <div>
+          Open time : {data?.map((value) => value.time_open.toFixed(3))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Price;

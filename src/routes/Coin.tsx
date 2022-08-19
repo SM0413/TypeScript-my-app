@@ -128,10 +128,6 @@ interface IPriceData {
   };
 }
 
-const HeaderDiv = styled.div`
-  display: inline;
-`;
-
 const Tabs = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -197,11 +193,9 @@ function Coin() {
         </title>
       </Helmet>
       <Header>
-        <div>
-          <Link to={`/`}>
-            <img src={GobackImg} alt="GoBackImg" title="GotoHome" />
-          </Link>
-        </div>
+        <Link to={`/`}>
+          <img src={GobackImg} alt="GoBackImg" title="GotoHome" />
+        </Link>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
