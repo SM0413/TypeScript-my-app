@@ -1,5 +1,33 @@
-function Price(){
-    return <h1>Price</h1>
+import { useQuery } from "react-query";
+import { fetchPrice } from "../api";
+
+interface IPrice {
+  time_open: number;
+  time_close: number;
+  open: string;
+  high: string;
+  low: string;
+  close: string;
+  volume: string;
+  market_cap: number;
+}
+
+interface PriceProps {
+  coinId: string;
+}
+function Price({ coinId }: PriceProps) {
+  const { isLoading, data } = useQuery<IPrice[]>(["PriceOf", coinId], () =>
+    fetchPrice(coinId)
+  );
+  return (
+    <div>
+      {isLoading ? (
+        "Loading Price....."
+      ) : (
+        <div> {data?.map((value) => value.high)}</div>
+      )}
+    </div>
+  );
 }
 
 export default Price;

@@ -12,6 +12,8 @@ import styled from "styled-components";
 import { fetchCoinInfoData, fetchCoinTickersData } from "../api";
 import Chart from "./Chart";
 import Price from "./Price";
+import GobackImg from "../img/goback.png";
+
 const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
   font-size: 40px;
@@ -54,6 +56,9 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  div {
+    justify-content: left;
+  }
 `;
 
 interface RouteState {
@@ -122,6 +127,11 @@ interface IPriceData {
     };
   };
 }
+
+const HeaderDiv = styled.div`
+  display: inline;
+`;
+
 const Tabs = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -187,10 +197,16 @@ function Coin() {
         </title>
       </Helmet>
       <Header>
+        <div>
+          <Link to={`/`}>
+            <img src={GobackImg} alt="GoBackImg" title="GotoHome" />
+          </Link>
+        </div>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
       </Header>
+
       {loading ? (
         <Loader>"Loading...."</Loader>
       ) : (
@@ -232,7 +248,7 @@ function Coin() {
 
           <Routes>
             <Route path="chart" element={<Chart coinId={coinId as string} />} />
-            <Route path="price" element={<Price />} />
+            <Route path="price" element={<Price coinId={coinId as string} />} />
           </Routes>
         </>
       )}
