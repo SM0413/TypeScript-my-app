@@ -13,6 +13,8 @@ import { fetchCoinInfoData, fetchCoinTickersData } from "../api";
 import Chart from "./Chart";
 import Price from "./Price";
 import GobackImg from "../img/goback.png";
+import { useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../atoms";
 
 const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
@@ -151,6 +153,8 @@ const Tab = styled.span<{ isActive: boolean }>`
 `;
 
 function Coin() {
+  const setMode = useSetRecoilState(isDarkAtom);
+  const DLMOde = () => setMode((prev) => !prev);
   const { coinId } = useParams() as { coinId: string };
   const location = useLocation();
   const state = location.state as RouteState;
@@ -199,7 +203,7 @@ function Coin() {
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
-        <button>"abc"</button>
+        <button onClick={DLMOde}>ChangeMode</button>
       </Header>
 
       {loading ? (
