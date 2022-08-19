@@ -149,8 +149,11 @@ const Tab = styled.span<{ isActive: boolean }>`
     display: block;
   }
 `;
-
-function Coin() {
+interface ICoinProps {
+  toggleDark: () => void;
+  isDark: boolean;
+}
+function Coin({ toggleDark, isDark }: ICoinProps) {
   const { coinId } = useParams() as { coinId: string };
   const location = useLocation();
   const state = location.state as RouteState;
@@ -199,6 +202,9 @@ function Coin() {
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
+        <button onClick={toggleDark}>
+          {isDark ? "ChangeToDark" : "ChangeToLight"}
+        </button>
       </Header>
 
       {loading ? (
@@ -241,7 +247,16 @@ function Coin() {
           </Tabs>
 
           <Routes>
-            <Route path="chart" element={<Chart coinId={coinId as string} />} />
+            <Route
+              path="chart"
+              element={
+                <Chart
+                  coinId={coinId as string}
+                  toggleDark={toggleDark}
+                  isDark={isDark}
+                />
+              }
+            />
             <Route path="price" element={<Price coinId={coinId as string} />} />
           </Routes>
         </>
